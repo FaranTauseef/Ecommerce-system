@@ -4,7 +4,7 @@
 @using Microsoft.AspNetCore.Components.Authorization
 @inject IUserService _userService
 @inject NavigationManager _navService
-@inject IToastService _toasService
+@inject IToastService _toastService
 @inject AuthenticationStateProvider _authProvider
 
 
@@ -17,23 +17,25 @@
                     <EditForm Model="model" OnValidSubmit="Initial">
                         <DataAnnotationsValidator></DataAnnotationsValidator>
                         <div class="form-floating mb-3">
-                            <input class="form-control" id="inputEmail" type="email" placeholder="admin@example.com" @bind-value="model.Email" autocomplete="off" />
-                            <label for="inputEmail">Correo</label>
-                            <ValidationMessage For="@(()=>model.Email)" />
+                            <input class="form-control" id="inputEmail" type="email" placeholder="admin@example.com" @bind-value="model.Email" autocomplete="username" />
+                            <label for="inputEmail">Email</label>
+                            <ValidationMessage For="@(() => model.Email)" />
                         </div>
                         <div class="form-floating mb-3">
-                            <input class="form-control" id="inputPassword" type="password" placeholder="123" @bind-value="model.Password" autocomplete="off" />
-                            <label for="inputPassword">Contraseña</label>
-                            <ValidationMessage For="@(()=>model.Password)" />
+                            <input class="form-control" id="inputPassword" type="password" placeholder="123" @bind-value="model.Password" autocomplete="current-password" />
+                            <label for="inputPassword">Password</label>
+                            <ValidationMessage For="@(() => model.Password)" />
                         </div>
 
                         <div class="d-grid gap-1 mt-4 mb-0">
-                            <button class="btn btn-primary" type="submit">Ingresar</button>
+                            <button class="btn btn-primary" type="submit" disabled="@isLoading">
+                                @(isLoading ? "Logging in..." : "Log in")
+                            </button>
                         </div>
                     </EditForm>
                 </div>
                 <div class="card-footer text-center py-3">
-                    <div class="small"><a href="/register">No tienes una cuenta? Registrate!</a></div>
+                    <div class="small"><a href="/register">Don't have an account? Register!</a></div>
                 </div>
             </div>
         </div>
@@ -42,25 +44,43 @@
 
 @code {
     private LoginDTO model = new LoginDTO();
+    private bool isLoading = false;
 
     private async Task Initial()
     {
+        isLoading = true;
+        StateHasChanged();
+
         var response = await _userService.Authorization(model);
+
+        isLoading = false;
+        StateHasChanged();
+
         if (response.IsCorrect)
         {
             SessionDTO session = (SessionDTO)response.Result!;
 
-            var authenticationExt = (AuthExtension)_authProvider;
-            await authenticationExt.UpdateStateAuthentication(session);
-
-            if (session.Role.ToLower() == "cliente")
-                _navService.NavigateTo("/");
+            if (_authProvider is AuthExtension authenticationExt)
+            {
+                await authenticationExt.UpdateStateAuthentication(session);
+                NavigateByRole(session.Role);
+            }
             else
-                _navService.NavigateTo("/dashboard");
+            {
+                _toastService.ShowWarning("Authentication provider error.");
+            }
         }
         else
         {
-            _toasService.ShowWarning(response.Message!);
+            _toastService.ShowWarning(response.Message!);
         }
+    }
+
+    private void NavigateByRole(string role)
+    {
+        if (role.Equals("cliente", StringComparison.OrdinalIgnoreCase))
+            _navService.NavigateTo("/");
+        else
+            _navService.NavigateTo("/dashboard");
     }
 }

@@ -2,7 +2,7 @@
 
 @inject IDashboardService _dashboardService
 
-@attribute [Authorize(Roles = "Administrador")]
+@attribute [Authorize(Roles = "Administrator")]
 
 <div class="row mt-4">
 
@@ -11,7 +11,7 @@
             <div class="row align-items-center">
                 <div class="col ms-2">
                     <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                        Total Ingresos
+                        Total Income
                     </div>
                     <div class="h5 mb-0 fw-bold text-muted">
                         $ @dashboard.TotalIncome
@@ -29,7 +29,7 @@
             <div class="row align-items-center">
                 <div class="col ms-2">
                     <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                        Total Ventas
+                        Total Sales
                     </div>
                     <div class="h5 mb-0 fw-bold text-muted">
                         @dashboard.TotalSales
@@ -47,7 +47,7 @@
             <div class="row align-items-center">
                 <div class="col ms-2">
                     <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                        Total Clientes
+                        Total Clients
                     </div>
                     <div class="h5 mb-0 fw-bold text-muted">
                         @dashboard.TotalClients
@@ -65,7 +65,7 @@
             <div class="row align-items-center">
                 <div class="col ms-2">
                     <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                        Total Productos
+                        Total Products
                     </div>
                     <div class="h5 mb-0 fw-bold text-muted">
                         @dashboard.TotalProducts

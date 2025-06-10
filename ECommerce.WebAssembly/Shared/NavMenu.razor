@@ -11,24 +11,23 @@
 
 <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-li bg-light text-dark">
     <div class="container">
-        <a class="navbar-brand text-dark" runat="server" href="#">Blazor E-Commerce</a>
-        <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Alternar navegación" aria-controls="navbarSupportedContent"
+        <a class="navbar-brand text-dark" href="#">Blazor E-Commerce</a>
+        <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
                 aria-expanded="false" aria-label="Toggle navigation" @onclick="ToggleNavMenu">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="@NavMenuCssClass navbar-collapse d-sm-inline-flex justify-content-between">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
 
-                <AuthorizeView Roles="Administrador">
-                    <li class="nav-item" b-test><NavLink class="nav-link text-dark" href="dashboard"> Dashboard</NavLink></li>
-                    <li class="nav-item"><NavLink class="nav-link text-dark" href="users"> Usuarios</NavLink></li>
-                    <li class="nav-item"><NavLink class="nav-link text-dark" href="categories"> Categorias</NavLink></li>
-                    <li class="nav-item"><NavLink class="nav-link text-dark" href="products"> Productos</NavLink></li>
+                <AuthorizeView Roles="Administrator">
+                    <li class="nav-item" b-test><NavLink class="nav-link text-dark" href="dashboard">Dashboard</NavLink></li>
+                    <li class="nav-item"><NavLink class="nav-link text-dark" href="users">Users</NavLink></li>
+                    <li class="nav-item"><NavLink class="nav-link text-dark" href="categories">Categories</NavLink></li>
+                    <li class="nav-item"><NavLink class="nav-link text-dark" href="products">Products</NavLink></li>
                 </AuthorizeView>
 
-                <li class="nav-item"><NavLink class="nav-link text-dark" href="catalog"> Tienda</NavLink></li>
+                <li class="nav-item"><NavLink class="nav-link text-dark" href="catalog">Shop</NavLink></li>
             </ul>
-
 
             <AuthorizeView>
                 <Authorized>
@@ -38,19 +37,20 @@
                 </Authorized>
             </AuthorizeView>
 
-            <a class="btn btn-primary ms-auto ms-md-0 me-3 ps-3 pe-3 pt-1 pb-1 p d-flex justify-content-center align-items-center gap-2" href="/cart">
+            <a class="btn btn-primary ms-auto ms-md-0 me-3 ps-3 pe-3 pt-1 pb-1 d-flex justify-content-center align-items-center gap-2" href="/cart">
                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#ffffff">
                     <path d="M280-80q-33 0-56.5-23.5T200-160q0-33 23.5-56.5T280-240q33 0 56.5 23.5T360-160q0 33-23.5 56.5T280-80Zm400 0q-33 0-56.5-23.5T600-160q0-33 23.5-56.5T680-240q33 0 56.5 23.5T760-160q0 33-23.5 56.5T680-80ZM246-720l96 200h280l110-200H246Zm-38-80h590q23 0 35 20.5t1 41.5L692-482q-11 20-29.5 31T622-440H324l-44 80h480v80H280q-45 0-68-39.5t-2-78.5l54-98-144-304H40v-80h130l38 80Zm134 280h280-280Z" />
                 </svg>
                 <p class="text-white m-0">@ShowAmountCart()</p>
             </a>
+
             <AuthorizeView>
                 <Authorized>
-                    <button class="btn btn-danger ms-auto ms-md-0 me-3" type="button" @onclick="LogOut">Salir</button>
+                    <button class="btn btn-danger ms-auto ms-md-0 me-3" type="button" @onclick="LogOut">Log Out</button>
                 </Authorized>
 
                 <NotAuthorized>
-                    <a class="btn btn-primary ms-auto ms-md-0 me-3" href="/login">Iniciar sesion</a>
+                    <a class="btn btn-primary ms-auto ms-md-0 me-3" href="/login">Log In</a>
                 </NotAuthorized>
             </AuthorizeView>
         </div>
@@ -86,10 +86,10 @@
     {
         SweetAlertResult result = await Swal.FireAsync(new SweetAlertOptions
             {
-                Title = "¿Desea salir?",
+                Title = "Do you want to log out?",
                 Icon = SweetAlertIcon.Warning,
                 ShowCancelButton = true,
-                ConfirmButtonText = "Si",
+                ConfirmButtonText = "Yes",
                 CancelButtonText = "No",
             });
 

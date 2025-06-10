@@ -5,25 +5,25 @@
 @inject IToastService _toastService
 @inject NavigationManager _navService
 
-@attribute [Authorize(Roles = "Administrador")]
+@attribute [Authorize(Roles = "Administrator")]
 
-<div class="row justify-content-center  mt-3">
+<div class="row justify-content-center mt-3">
     <p class="col-sm-12 col-md-8 col-xl-10 h4 mt-2">@title</p>
 </div>
-<div class="row justify-content-center  mt-3">
+<div class="row justify-content-center mt-3">
     <div class="col-sm-12 col-md-8 col-xl-10">
 
         <EditForm Model="model" OnValidSubmit="SaveChanges">
             <DataAnnotationsValidator></DataAnnotationsValidator>
             <div class="input-group">
-                <span class="input-group-text bg-light">Nombre</span>
+                <span class="input-group-text bg-light">Name</span>
                 <input type="text" class="form-control" @bind-value="model.NameCategory">
             </div>
-            <ValidationMessage For="@(()=>model.NameCategory)" />
+            <ValidationMessage For="@(() => model.NameCategory)" />
 
             <div class="mt-3">
                 <button type="submit" class="btn btn-primary" style="width:130px">@button</button>
-                <a href="/categories" class="btn btn-secondary" style="width:130px">Volver</a>
+                <a href="/categories" class="btn btn-secondary" style="width:130px">Back</a>
             </div>
         </EditForm>
     </div>
@@ -32,16 +32,16 @@
 @code {
     [Parameter]
     public int Id { get; set; }
-    private string title = "Nueva categoria";
-    private string button = "Crear";
+    private string title = "New Category";
+    private string button = "Create";
     private CategoryDTO model = new CategoryDTO();
 
     protected override async Task OnParametersSetAsync()
     {
         if (Id != 0)
         {
-            title = "Editar categoria";
-            button = "Actualizar";
+            title = "Edit Category";
+            button = "Update";
 
             var response = await _categoryService.GetCategory(Id);
             if (response.IsCorrect)
@@ -65,12 +65,12 @@
             var res = await _categoryService.Updatecategory(model);
             if (res.IsCorrect)
             {
-                message = "La categoria fue editada";
+                message = "The category was updated";
             }
             else
             {
                 response = false;
-                message = "No se pudo editar";
+                message = "Could not update the category";
             }
         }
         else
@@ -78,12 +78,12 @@
             var res = await _categoryService.CreateCategory(model);
             if (res.IsCorrect)
             {
-                message = "La categoria fue creada";
+                message = "The category was created";
             }
             else
             {
                 response = false;
-                message = "No se pudo crear la categoria";
+                message = "Could not create the category";
             }
         }
 

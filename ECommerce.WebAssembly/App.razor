@@ -1,7 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Components.Authorization
 @inject NavigationManager _navManager
 
-
 <CascadingAuthenticationState>
     <Router AppAssembly="@typeof(App).Assembly">
         <Found Context="routeData">
@@ -13,7 +12,7 @@
                             _navManager.NavigateTo("/login");
                         else
                         {
-                            <p class="alert alert-danger">No esta autorizado para ver esta pagina</p>
+                            <p class="alert alert-danger">You are not authorized to view this page</p>
                         }
                     }
                 </NotAuthorized>
@@ -23,7 +22,7 @@
         <NotFound>
             <PageTitle>Not found</PageTitle>
             <LayoutView Layout="@typeof(MainLayout)">
-                <p role="alert">Lo siento, no hay nada en esta direccion</p>
+                <p role="alert">Sorry, there is nothing at this address</p>
             </LayoutView>
         </NotFound>
     </Router>

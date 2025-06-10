@@ -10,24 +10,25 @@ namespace ECommerceBrazorNet7.DTO
     public class ProductDTO
     {
         public int IdProduct { get; set; }
-        [Required(ErrorMessage = "Ingrese nombre del producto")]
+
+        [Required(ErrorMessage = "Enter product name")]
         public string? NameProduct { get; set; }
 
-        [Required(ErrorMessage = "Ingrese una descripcion")]
+        [Required(ErrorMessage = "Enter a description")]
         public string? Description { get; set; }
 
         public int? IdCategory { get; set; }
 
-        [Required(ErrorMessage = "Ingrese el precio")]
+        [Required(ErrorMessage = "Enter the price")]
         public decimal? Price { get; set; }
 
-        [Required(ErrorMessage = "Ingrese el precio de oferta")]
+        [Required(ErrorMessage = "Enter the offer price")]
         public decimal? OfferPrice { get; set; }
 
-        [Required(ErrorMessage = "Ingrese la cantidad")]
+        [Required(ErrorMessage = "Enter the quantity")]
         public int? Amount { get; set; }
 
-        [Required(ErrorMessage = "Ingrese la imagen")]
+        [Required(ErrorMessage = "Enter the image")]
         public string? Picture { get; set; }
 
         public DateTime? CreationDate { get; set; }

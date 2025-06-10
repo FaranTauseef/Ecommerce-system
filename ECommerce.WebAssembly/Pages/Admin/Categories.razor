@@ -4,20 +4,21 @@
 @inject IToastService _toastService
 @inject SweetAlertService Swal
 
-@attribute [Authorize(Roles = "Administrador")]
+@attribute [Authorize(Roles = "Administrator")]
 
 <div class="row justify-content-center  mt-3">
     <div class="col-sm-6 col-md-4 col-xl-3 mb-4">
         <div class="d-grid gap-1 col-12 mx-auto">
-            <a class="btn btn-primary" href="/category">Nueva Categoria</a>
+            <a class="btn btn-primary" href="/category">New Category</a>
         </div>
     </div>
     <div class="col-sm-6 col-md-8 col-xl-9 mb-4">
         <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Buscar categoria..." @bind-value="found">
+            <input type="text" class="form-control" placeholder="Search category..." @bind-value="found">
             <button class="btn btn-outline-primary" type="button" @onclick="(async()=> await GetCategory(found))">
+                <!-- Search icon -->
                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#ffffff">
-                    <path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z" />
+                    <path d="..." />
                 </svg>
             </button>
         </div>
@@ -28,7 +29,7 @@
 
     @if (listCategory != null)
     {
-        foreach(var item in listCategory)
+        foreach (var item in listCategory)
         {
             <div class="col mb-5">
                 <div class="card h-100 border border-light">
@@ -38,23 +39,23 @@
                                 <i class="oi oi-folder" style="font-size:50px"></i>
                             </div>
                             <div class="text-start">
-                                <p class="m-1"><b>Nombre:</b> @item.NameCategory</p>
+                                <p class="m-1"><b>Name:</b> @item.NameCategory</p>
                             </div>
                         </div>
                     </div>
                     <div class="card-footer bg-transparent">
                         <div class="row justify-content-between">
                             <a class="col-5 btn btn-sm btn-primary mt-auto" href="/category/@item.IdCategory">
+                                <!-- Edit/View icon -->
                                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#ffffff">
-                                    <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z" />
+                                    <path d="..." />
                                 </svg>
                             </a>
                             <button class="col-5 btn btn-sm btn-danger mt-auto" type="button" @onclick="(async () => await DeleteCategory(item))">
-                                
+                                <!-- Delete icon -->
                                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#ffffff">
-                                    <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" />
+                                    <path d="..." />
                                 </svg>
-                              
                             </button>
                         </div>
                     </div>
@@ -96,12 +97,12 @@
     {
         SweetAlertResult result = await Swal.FireAsync(new SweetAlertOptions
             {
-                Title = "¿Estas Seguro?",
-                Text = $"Eliminar categoria: {model.NameCategory}",
+                Title = "Are you sure?",
+                Text = $"Delete category: {model.NameCategory}",
                 Icon = SweetAlertIcon.Warning,
                 ShowCancelButton = true,
-                ConfirmButtonText = "Si, eliminar",
-                CancelButtonText = "No, volver",
+                ConfirmButtonText = "Yes, delete",
+                CancelButtonText = "No, go back",
             });
 
         if (result.IsConfirmed)
@@ -110,7 +111,7 @@
             if (response.IsCorrect)
             {
                 await GetCategory();
-                _toastService.ShowSuccess("La categoria fue eiminada");
+                _toastService.ShowSuccess("The category was deleted");
             }
             else
             {

@@ -9,10 +9,10 @@ namespace ECommerceBrazorNet7.DTO
 {
     public class LoginDTO
     {
-        [Required(ErrorMessage = "Ingrese correo electronico")]
+        [Required(ErrorMessage = "Enter email")]
         public string? Email { get; set; }
 
-        [Required(ErrorMessage = "Ingresar contraseña")]
+        [Required(ErrorMessage = "Enter password")]
         public string? Password { get; set; }
     }
 }

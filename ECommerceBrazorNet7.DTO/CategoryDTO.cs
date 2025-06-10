@@ -11,7 +11,7 @@ namespace ECommerceBrazorNet7.DTO
     {
         public int IdCategory { get; set; }
 
-        [Required(ErrorMessage = "Ingrese nombre")]
+        [Required(ErrorMessage = "Enter name")]
         public string? NameCategory { get; set; }
 
     }

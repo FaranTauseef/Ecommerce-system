@@ -9,16 +9,16 @@ namespace ECommerceBrazorNet7.DTO
 {
     public class CardDTO
     {
-        [Required(ErrorMessage = "Ingrese titular")]
-        public string? Holder {  get; set; }
+        [Required(ErrorMessage = "Enter cardholder")]
+        public string? Holder { get; set; }
 
-        [Required(ErrorMessage = "Ingrese numero")]
+        [Required(ErrorMessage = "Enter number")]
         public string? Number { get; set; }
 
-        [Required(ErrorMessage = "Ingrese vigencia")]
+        [Required(ErrorMessage = "Enter validity")]
         public string? Validity { get; set; }
 
-        [Required(ErrorMessage = "Ingrese codigo de seguridad")]
+        [Required(ErrorMessage = "Enter security code")]
         public string? CVV { get; set; }
     }
 }

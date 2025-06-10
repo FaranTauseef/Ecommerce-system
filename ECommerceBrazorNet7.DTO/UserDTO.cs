@@ -11,16 +11,16 @@ namespace ECommerceBrazorNet7.DTO
     {
         public int IdUser { get; set; }
 
-        [Required(ErrorMessage = "Ingrese nombre completo")]
+        [Required(ErrorMessage = "Enter full name")]
         public string? FullName { get; set; }
 
-        [Required(ErrorMessage = "Ingrese correo electronico")]
+        [Required(ErrorMessage = "Enter email")]
         public string? Email { get; set; }
 
-        [Required(ErrorMessage = "Ingresar contraseña")]
+        [Required(ErrorMessage = "Enter password")]
         public string? Password { get; set; }
 
-        [Required(ErrorMessage = "Confirme contraseña")]
+        [Required(ErrorMessage = "Confirm password")]
         public string? ConfirmPassword { get; set; }
 
         public string? Role { get; set; }
