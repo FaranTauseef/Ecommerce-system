@@ -11,5 +11,4 @@ dotnet ef migrations add InitialCreate --project .\ECommerceBrazorNet7.Repositor
 
 dotnet ef database update --project .\ECommerceBrazorNet7.Repository\ECommerceBrazorNet7.Repository.csproj --startup-project .\ECommerceBrazorNet7.API\ECommerceBrazorNet7.API.csproj
 
-Huggingface Api
-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
+
