@@ -10,4 +10,8 @@
     <ProjectReference Include="..\ECommerceBrazorNet7.Model\ECommerceBrazorNet7.Model.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="7.0.0" />
+  </ItemGroup>
+
 </Project>

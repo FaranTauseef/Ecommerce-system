@@ -26,7 +26,16 @@ public partial class DbecommerceContext : DbContext
 
     public virtual DbSet<User> Users { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) { }
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        if (!optionsBuilder.IsConfigured)
+        {
+             optionsBuilder.UseMySql(
+            "Server=localhost;Port=3306;Database=ECommerceDB;User=root;Password=Admin;",
+            new MySqlServerVersion(new Version(8, 0, 36)) // Use your MySQL version here
+        );
+        }
+    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -37,7 +46,7 @@ public partial class DbecommerceContext : DbContext
             entity.ToTable("Category");
 
             entity.Property(e => e.CreationDate)
-                .HasDefaultValueSql("(getdate())")
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnType("datetime");
             entity.Property(e => e.NameCategory)
                 .HasMaxLength(50)
@@ -51,7 +60,7 @@ public partial class DbecommerceContext : DbContext
             entity.ToTable("Product");
 
             entity.Property(e => e.CreationDate)
-                .HasDefaultValueSql("(getdate())")
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnType("datetime");
             entity.Property(e => e.Description)
                 .HasMaxLength(1000)
@@ -75,7 +84,7 @@ public partial class DbecommerceContext : DbContext
             entity.ToTable("Sale");
 
             entity.Property(e => e.CreationDate)
-                .HasDefaultValueSql("(getdate())")
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnType("datetime");
             entity.Property(e => e.IdUser).HasColumnName("idUser");
             entity.Property(e => e.Total).HasColumnType("decimal(10, 2)");
@@ -107,7 +116,7 @@ public partial class DbecommerceContext : DbContext
             entity.HasKey(e => e.IdUser).HasName("PK__Users__B7C926388D2AF984");
 
             entity.Property(e => e.CreationDate)
-                .HasDefaultValueSql("(getdate())")
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnType("datetime");
             entity.Property(e => e.Email)
                 .HasMaxLength(50)

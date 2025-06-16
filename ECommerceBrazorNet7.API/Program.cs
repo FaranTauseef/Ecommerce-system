@@ -20,7 +20,10 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<DbecommerceContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("StringSQL"));
+     options.UseMySql(
+        builder.Configuration.GetConnectionString("StringSQL"),
+        new MySqlServerVersion(new Version(8, 0, 36))
+    );
 });
 
 builder.Services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
